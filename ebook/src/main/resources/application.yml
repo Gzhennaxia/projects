@@ -1,3 +1,22 @@
 spring:
   profiles:
     active: dev
+
+  datasource:
+    primary: # 主数据源
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/gzhennaxia
+      username: root
+      password:
+
+    annotation: # 笔记对应的数据源
+      driver-class-name: org.sqlite.JDBC
+      url: jdbc:sqlite:/Users/gzhennaxia/Library/Containers/com.apple.iBooksX/Data/Documents/AEAnnotation/AEAnnotation_v10312011_1727_local.sqlite
+      username:
+      password:
+
+    library: # 书库对应的数据源
+      driver-class-name: org.sqlite.JDBC
+      url: jdbc:sqlite:/Users/gzhennaxia/Library/Containers/com.apple.iBooksX/Data/Documents/BKSeriesDatabase/BKSeries-1-012820141020.sqlite
+      username:
+      password:

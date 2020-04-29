@@ -27,7 +27,7 @@ public class LibraryDataSourceConfiguration {
     public SqlSessionFactory librarySqlSessionFactory(@Qualifier("libraryDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
-        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/library/*Mapper.xml"));
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/library/*Mapper.xml"));
         return sqlSessionFactoryBean.getObject();
     }
 

@@ -14,7 +14,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = "com.example.ibook.mapper.library", sqlSessionFactoryRef = "librarySqlSessionFactory")
+@MapperScan(basePackages = "com.gzhennaxia.ebook.mapper.library", sqlSessionFactoryRef = "librarySqlSessionFactory", sqlSessionTemplateRef = "librarySqlSessionTemplate")
 public class LibraryDataSourceConfiguration {
 
     @Bean(name = "libraryDataSource")

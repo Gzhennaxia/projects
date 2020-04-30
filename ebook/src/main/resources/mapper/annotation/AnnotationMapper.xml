@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gzhennaxia.ebook.mapper.annotation.AnnotationMapper">
 
-    <select id="" >
-
+    <select id="selectAll" resultType="com.gzhennaxia.ebook.entity.Note">
+        select * from
     </select>
 </mapper>

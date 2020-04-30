@@ -8,7 +8,7 @@ import java.util.List;
  * @author bo li
  * @date 2020-04-29 10:37
  */
-public interface BookMapper {
+public interface LibraryMapper {
 
     List<Book> selectAll();
 }

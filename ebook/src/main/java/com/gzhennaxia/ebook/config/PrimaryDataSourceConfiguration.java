@@ -16,7 +16,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = "com.example.ibook.mapper.primary", sqlSessionFactoryRef = "primarySqlSessionFactory", sqlSessionTemplateRef = "primarySqlSessionTemplate")
+@MapperScan(basePackages = "com.gzhennaxia.ebook.mapper.primary", sqlSessionFactoryRef = "primarySqlSessionFactory", sqlSessionTemplateRef = "primarySqlSessionTemplate")
 public class PrimaryDataSourceConfiguration {
 
     @Bean(name = "primaryDataSource")
@@ -31,7 +31,7 @@ public class PrimaryDataSourceConfiguration {
     public SqlSessionFactory primarySqlSessionFactory(@Qualifier("primaryDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
-        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/primary/*Mapper.xml"));
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/primary/*Mapper.xml"));
         return sqlSessionFactoryBean.getObject();
     }
 

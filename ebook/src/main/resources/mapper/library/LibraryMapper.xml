@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gzhennaxia.ebook.mapper.library.BookMapper">
+<mapper namespace="com.gzhennaxia.ebook.mapper.library.LibraryMapper">
 
     <select id="selectAll" resultType="com.gzhennaxia.ebook.entity.Book">
         SELECT ZASSETID assetId, ZTITLE title, ZAUTHOR author FROM ZBKLIBRARYASSET

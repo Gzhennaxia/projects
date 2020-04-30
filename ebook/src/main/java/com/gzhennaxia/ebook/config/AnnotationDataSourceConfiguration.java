@@ -14,7 +14,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = "com.example.ibook.mapper.annotation", sqlSessionFactoryRef = "annotationSqlSessionFactory")
+@MapperScan(basePackages = "com.gzhennaxia.ebook.mapper.annotation", sqlSessionFactoryRef = "annotationSqlSessionFactory",sqlSessionTemplateRef = "annotationSqlSessionTemplate")
 public class AnnotationDataSourceConfiguration {
 
     @Bean(name = "annotationDataSource")
@@ -27,7 +27,7 @@ public class AnnotationDataSourceConfiguration {
     public SqlSessionFactory annotationSqlSessionFactory(@Qualifier("annotationDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
-        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/annotation/*Mapper.xml"));
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/annotation/*Mapper.xml"));
         return sqlSessionFactoryBean.getObject();
     }
 

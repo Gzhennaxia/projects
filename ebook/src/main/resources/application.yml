@@ -10,7 +10,7 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: jdbc:mysql://localhost:3306/gzhennaxia
       username: root
-      password:
+      password: 88888888
 
     annotation: # 笔记对应的数据源
       driver-class-name: org.sqlite.JDBC
@@ -24,4 +24,7 @@ spring:
       username:
       password:
 
-#mybatis.mapper-locations: classpath:mapper/**/*Mapper.xml
+# mybatis
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

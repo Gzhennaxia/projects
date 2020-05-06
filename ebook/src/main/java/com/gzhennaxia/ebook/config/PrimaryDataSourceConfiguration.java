@@ -35,11 +35,11 @@ public class PrimaryDataSourceConfiguration {
         return sqlSessionFactoryBean.getObject();
     }
 
-    @Bean(name = "primaryTransactionManager")
-    @Primary
-    public DataSourceTransactionManager testTransactionManager(@Qualifier("primaryDataSource") DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
+//    @Bean(name = "primaryTransactionManager")
+//    @Primary
+//    public DataSourceTransactionManager testTransactionManager(@Qualifier("primaryDataSource") DataSource dataSource) {
+//        return new DataSourceTransactionManager(dataSource);
+//    }
 
     @Bean("primarySqlSessionTemplate")
     @Primary

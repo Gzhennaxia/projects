@@ -20,7 +20,7 @@
 | Field | Type | Length | Note |
 | ----- | ---- | ------ | ---- |
 | id    | unsigned int  | 4      | primary key |
-| assert_id | char | 32 | key in ibook |
+| asset_id | char | 32 | key in ibook |
 | title | varchar | 50 |  |
 | author | varchar | 20 |  |
 | file_link | varchar | 255 |  |
@@ -28,7 +28,7 @@
 ```sql
 CREATE TABLE `gzhennaxia`.`ebook_book` (
 `id` INT ( 4 ) UNSIGNED NOT NULL AUTO_INCREMENT,
-`assert_id` CHAR ( 32 ) NULL,
+`asset_id` CHAR ( 32 ) NULL,
 `title` VARCHAR ( 50 ) NULL,
 `author` VARCHAR ( 20 ) NULL,
 `file_link` VARCHAR ( 255 ) NULL,

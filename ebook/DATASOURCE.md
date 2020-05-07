@@ -26,11 +26,12 @@
 | file_link | varchar | 255 |  |
 
 ```sql
-CREATE TABLE `gzhennaxia`.`ebook_book` (
+CREATE TABLE `ebook_book` (
 `id` INT ( 4 ) UNSIGNED NOT NULL AUTO_INCREMENT,
 `asset_id` CHAR ( 32 ) NULL,
 `title` VARCHAR ( 50 ) NULL,
 `author` VARCHAR ( 20 ) NULL,
+`cover_link` varchar(255) NULL,
 `file_link` VARCHAR ( 255 ) NULL,
 `create_by` INT ( 4 ) UNSIGNED NULL,
 `create_time` datetime ( 0 ) NULL DEFAULT CURRENT_TIMESTAMP,

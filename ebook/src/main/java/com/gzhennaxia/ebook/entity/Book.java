@@ -17,6 +17,8 @@ public class Book {
 
     private String author;
 
+    private String coverLink;
+
     private String fileLink;
 
 }

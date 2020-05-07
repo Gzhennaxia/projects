@@ -20,6 +20,11 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    @GetMapping("/all")
+    public Result getAll() {
+        return Result.success(bookService.selectAll());
+    }
+
     @GetMapping("/syncBooks")
     public Result syncBooks() {
         bookService.syncBooks();

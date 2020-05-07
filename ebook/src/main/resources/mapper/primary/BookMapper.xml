@@ -3,7 +3,7 @@
 <mapper namespace="com.gzhennaxia.ebook.mapper.primary.BookMapper">
 
     <select id="selectAll" resultType="com.gzhennaxia.ebook.entity.Book">
-        SELECT id, asset_id, title FROM ebook_book
+        SELECT id, asset_id, title, author, cover_link FROM ebook_book
     </select>
 
     <insert id="insert">

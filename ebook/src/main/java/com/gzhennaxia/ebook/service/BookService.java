@@ -1,5 +1,9 @@
 package com.gzhennaxia.ebook.service;
 
+import com.gzhennaxia.ebook.entity.Book;
+
+import java.util.List;
+
 /**
  * @author bo li
  * @date 2020-04-29 10:31
@@ -12,4 +16,6 @@ public interface BookService {
      * @date 2020-05-06 09:43
      */
     void syncBooks();
+
+    List<Book> selectAll();
 }

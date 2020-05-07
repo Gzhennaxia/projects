@@ -35,6 +35,11 @@ public class BookServiceImpl implements BookService {
         add(books);
     }
 
+    @Override
+    public List<Book> selectAll() {
+        return bookMapper.selectAll();
+    }
+
     private void add(List<Book> books) {
         if (!CollectionUtils.isEmpty(books))
             bookMapper.insert(books);

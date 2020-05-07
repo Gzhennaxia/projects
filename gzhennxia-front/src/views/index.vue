@@ -1,22 +1,13 @@
 <template>
     <div>
-        <span>Hi, there is gzhennaxia.</span>
-        <div>
-            <input type="button" value="Sync Books" @click="syncBooks"/>
-        </div>
+        <h1>Hi, there is gzhennaxia.</h1>
+        <h2><router-link to="/ebook">eBook</router-link></h2>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
-  name: 'index',
-  methods: {
-    syncBooks () {
-      axios.get('http://localhost:9527/ebook/book/syncBooks').then(response => { console.log(response) })
-    }
-  }
+  name: 'index'
 }
 </script>
 

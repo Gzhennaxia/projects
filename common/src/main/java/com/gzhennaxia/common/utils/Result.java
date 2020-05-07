@@ -16,12 +16,18 @@ public class Result<T> {
 
     private T data;
 
-    public Result(ResultEnum codeEnum) {
+    private Result(ResultEnum codeEnum) {
         this.code = codeEnum.getCode();
         this.message = codeEnum.getMessage();
     }
 
     public static Result success() {
         return new Result(ResultEnum.SUCCESS);
+    }
+
+    public static Result success(Object data) {
+        Result result = success();
+        result.setData(data);
+        return result;
     }
 }

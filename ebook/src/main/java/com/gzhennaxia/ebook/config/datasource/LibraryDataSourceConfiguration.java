@@ -1,4 +1,4 @@
-package com.gzhennaxia.ebook.config;
+package com.gzhennaxia.ebook.config.datasource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;

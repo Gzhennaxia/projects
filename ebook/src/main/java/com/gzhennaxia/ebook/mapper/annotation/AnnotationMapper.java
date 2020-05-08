@@ -1,6 +1,6 @@
 package com.gzhennaxia.ebook.mapper.annotation;
 
-import com.gzhennaxia.ebook.entity.Note;
+import com.gzhennaxia.ebook.entity.Quote;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface AnnotationMapper {
 
-    List<Note> selectAll();
+    List<Quote> selectAll();
 }

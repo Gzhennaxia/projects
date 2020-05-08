@@ -14,4 +14,6 @@ public interface BookMapper {
     List<Book> selectAll();
 
     void insert(@Param("books") List<Book> books);
+
+    Book selectByAssetId(String assetId);
 }

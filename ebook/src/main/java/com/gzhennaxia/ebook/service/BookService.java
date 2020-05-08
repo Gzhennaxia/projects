@@ -12,10 +12,15 @@ public interface BookService {
 
     /**
      * 同步图书信息
+     *
      * @author bli@skystartrade.com
      * @date 2020-05-06 09:43
      */
     void syncBooks();
 
     List<Book> selectAll();
+
+    Book selectByAssetId(String assetId);
+
+    Book sync(String assetId);
 }

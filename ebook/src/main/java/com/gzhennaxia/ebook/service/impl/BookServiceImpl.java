@@ -40,6 +40,17 @@ public class BookServiceImpl implements BookService {
         return bookMapper.selectAll();
     }
 
+    @Override
+    public Book selectByAssetId(String assetId) {
+        return bookMapper.selectByAssetId(assetId);
+    }
+
+    @Override
+    public Book sync(String assetId) {
+        // todo
+        return null;
+    }
+
     private void add(List<Book> books) {
         if (!CollectionUtils.isEmpty(books))
             bookMapper.insert(books);

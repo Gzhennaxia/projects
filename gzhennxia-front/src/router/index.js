@@ -12,6 +12,9 @@ const routes = [{
 }, {
   path: '/ebook/library',
   component: () => import('@/views/ebook/library')
+}, {
+  path: '/ebook/note',
+  component: () => import('@/views/ebook/note')
 }]
 
 const router = new VueRouter({

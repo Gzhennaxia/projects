@@ -48,7 +48,33 @@ PRIMARY KEY ( `id` )
 );
 ```
 
-### quote
+### chapter
+
+| Field | Type & Length | Note |
+| ----- | ---------- | ---- |
+| id    | int(16) unsigned | primary key |
+| parent_id | int(16) unsigned | parent key<br>root key is 0 |
+| book_id | int(4) unsigned | book key |
+| title | varchar(20) | |
+
+```sql
+CREATE TABLE `ebook_chapter` (
+`id` INT ( 16 ) UNSIGNED NOT NULL AUTO_INCREMENT,
+`parent_id` INT( 16 ) UNSIGNED NULL,
+`book_id` INT(4) UNSIGNED NULL,
+`title` VARCHAR( 20 ) NULL, 
+`create_by` INT ( 4 ) UNSIGNED NULL,
+`create_time` datetime ( 0 ) NULL DEFAULT CURRENT_TIMESTAMP,
+`update_by` INT ( 4 ) UNSIGNED NULL,
+`update_time` datetime ( 0 ) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+`is_deleted` TINYINT ( 1 ) UNSIGNED NULL DEFAULT 0,
+`status` TINYINT ( 3 ) UNSIGNED NULL,
+`note` VARCHAR ( 255 ) NULL,
+PRIMARY KEY ( `id` ) 
+);
+```
+
+### note
 
 | Field | Type & Length | Note |
 | ----- | ---------- | ---- |
@@ -58,17 +84,19 @@ PRIMARY KEY ( `id` )
 | selectedText | varchar(255) | 选中的文本 |
 | representativeText | varchar(255) | 整句 |
 | location | varchar(255) | 位置 |
+| chapterId | int(16) | chapter key |
 | comment_id | int(16) unsigned | 评论 |
 | color | int(4) unsigned | 1<span style="padding-left:2px;">:<span> <i class="fa fa-circle" style="color: #33D42D"></i><br/>2: <i class="fa fa-circle" style="color: #3CA3FF"></i><br/>3: <i class="fa fa-circle" style="color: #FECF0B"></i> |
 
 ```sql
-CREATE TABLE `ebook_quote` (
+CREATE TABLE `ebook_note` (
 `id` INT ( 16 ) UNSIGNED NOT NULL AUTO_INCREMENT,
 `book_id` INT(4) UNSIGNED NULL,
 `type` INT(4) UNSIGNED NULL,
 `selected_text` VARCHAR(255) NULL,
 `representative_text` VARCHAR(255) NULL,
 `location` VARCHAR(255) NULL,
+`chapter_id` INT(16) UNSIGNED NULL,
 `comment_id` INT(16) UNSIGNED NULL,
 `color` INT(4) UNSIGNED NULL,
 `create_by` INT ( 4 ) UNSIGNED NULL,

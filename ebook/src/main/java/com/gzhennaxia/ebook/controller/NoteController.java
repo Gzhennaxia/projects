@@ -1,7 +1,7 @@
 package com.gzhennaxia.ebook.controller;
 
 import com.gzhennaxia.common.utils.Result;
-import com.gzhennaxia.ebook.service.QuoteService;
+import com.gzhennaxia.ebook.service.NoteService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,18 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020-05-08 12:14
  */
 @RestController
-@RequestMapping("/quote")
-public class QuoteController {
+@RequestMapping("/note")
+public class NoteController {
 
-    private final QuoteService quoteService;
+    private final NoteService noteService;
 
-    public QuoteController(QuoteService quoteService) {
-        this.quoteService = quoteService;
+    public NoteController(NoteService noteService) {
+        this.noteService = noteService;
     }
 
     @GetMapping("/sync/{assetId}")
     public Result sync(@PathVariable String assetId) {
-        quoteService.sync(assetId);
+        noteService.sync(assetId);
         return Result.success();
+    }
+
+    @GetMapping("/all/{booId}")
+    public Result getNotes(@PathVariable Integer bookId) {
+        return Result.success(noteService.getNotes(bookId));
     }
 }

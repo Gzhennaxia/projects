@@ -13,7 +13,7 @@ const routes = [{
   path: '/ebook/library',
   component: () => import('@/views/ebook/library')
 }, {
-  path: '/ebook/note',
+  path: '/ebook/:bookId/note',
   component: () => import('@/views/ebook/note')
 }]
 

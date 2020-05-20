@@ -1,8 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gzhennaxia.ebook.mapper.primary.NoteMapper">
 
+    <resultMap id="noteDtoMap" type="com.gzhennaxia.ebook.dto.NoteDto">
+        <id column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="selected_text" property="selectedText"/>
+        <result column="representative_text" property="representativeText"/>
+        <result column="location" property="location"/>
+        <result column="color" property="color"/>
+        <result column="comment" property="comment"/>
+    </resultMap>
     <select id="selectAll" resultType="com.gzhennaxia.ebook.dto.NoteDto">
-        SELECT * FROM ebook_note en LEFT JOIN ebook_chapter ec ON en.chapter_id = ec.id
+        SELECT
+        en.id,
+        en.type,
+        en.selected_text,
+        en.representative_text,
+        en.location,
+        en.color,
+        en.create_time,
+        ect.comment,
+        ec.id as chapterId,
+        ec.parent_id as chapterParentId,
+        ec.title as chapterName
+        FROM
+        ( SELECT * FROM ebook_note WHERE book_id = #{bookId} ) en
+        LEFT JOIN ebook_chapter ec ON en.chapter_id = ec.id
+        LEFT JOIN ebook_comment ect ON en.comment_id = ect.id
     </select>
+
+    <select id="select" resultType="com.gzhennaxia.ebook.po.NotePo">
+        select id, book_id, chapter_id, type, selected_text, representative_text
+        from ebook_note where book_id = #{notePo.bookId} and location = #{notePo.location}
+    </select>
+
+    <insert id="insert" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+        insert into ebook_note ( book_id, type, selected_text, representative_text, location, chapter_id, comment_id,
+        color, create_time ) values
+        <foreach collection="list" item="item" separator=",">
+            ( #{item.bookId}, #{item.type}, #{item.selectedText}, #{item.representativeText}, #{item.location},
+            #{item.chapterId}, #{item.commentId},
+            #{item.color}, #{item.createTime} )
+        </foreach>
+    </insert>
+
 </mapper>

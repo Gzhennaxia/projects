@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gzhennaxia.ebook.mapper.annotation.AnnotationMapper">
 
-    <select id="selectAll" resultType="com.gzhennaxia.ebook.entity.Quote">
-        select * from
+    <resultMap id="annotationMap" type="com.gzhennaxia.ebook.po.AnnotationPo">
+        <id column="Z_PK" property="id"/>
+        <result column="ZANNOTATIONASSETID" property="assetId"/>
+        <result column="ZANNOTATIONREPRESENTATIVETEXT" property="representativeText"/>
+        <result column="ZANNOTATIONSELECTEDTEXT" property="selectedText"/>
+        <result column="ZANNOTATIONNOTE" property="note"/>
+        <result column="ZANNOTATIONSTYLE" property="styleType"/>
+        <result column="ZANNOTATIONCREATIONDATE" property="creationDate"/>
+        <result column="ZANNOTATIONLOCATION" property="location"/>
+    </resultMap>
+    <select id="selectAll" resultMap="annotationMap">
+        SELECT
+            Z_PK,
+            ZANNOTATIONASSETID,
+            ZANNOTATIONREPRESENTATIVETEXT,
+            ZANNOTATIONSELECTEDTEXT,
+            ZANNOTATIONNOTE,
+            ZANNOTATIONSTYLE,
+            ZANNOTATIONCREATIONDATE,
+            ZANNOTATIONLOCATION
+        FROM
+            ZAEANNOTATION
+        WHERE
+            ZANNOTATIONASSETID = #{assetId}
+            AND ZANNOTATIONDELETED = 0
+            AND ZANNOTATIONREPRESENTATIVETEXT IS NOT NULL
     </select>
 </mapper>

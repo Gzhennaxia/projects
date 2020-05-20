@@ -22,5 +22,4 @@ public interface BookService {
 
     Book selectByAssetId(String assetId);
 
-    Book sync(String assetId);
 }

@@ -27,11 +27,9 @@ public class BookServiceImpl implements BookService {
     public void syncBooks() {
         List<Book> books = libraryMapper.selectAll();
         List<Book> existBooks = bookMapper.selectAll();
-
         for (Book existBook : existBooks) {
             books.removeIf(book -> existBook.getAssetId().equals(book.getAssetId()));
         }
-
         add(books);
     }
 
@@ -43,12 +41,6 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book selectByAssetId(String assetId) {
         return bookMapper.selectByAssetId(assetId);
-    }
-
-    @Override
-    public Book sync(String assetId) {
-        // todo
-        return null;
     }
 
     private void add(List<Book> books) {

@@ -49,6 +49,28 @@
                         </div>
                         <div v-html="note.comment"></div>
                     </div>
+
+                    <div v-for="chapterNote of chapterNotes">
+                        <h2>{{ chapterNote.chapterName || 'Unknown' }}</h2>
+                        <div v-for="note of chapterNote.notes">
+                            <div class="note-label">
+                                <div style="line-height: 28px">
+                                    {{ note.createTime }}}
+                                </div>
+                                <div class="note-pos" :title="note.pos">
+                                    POS
+                                </div>
+                            </div>
+                            <div class="note-content">
+                                <span>{{ note.contentBefore }}</span>
+                                <span style="color: #FECF0B;">
+                                {{ note.contentMiddle }}
+                            </span>
+                                <span>{{ note.contentAfter }}</span>
+                            </div>
+                            <div v-html="note.comment"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +83,7 @@ export default {
   name: 'index',
   data () {
     return {
-      toc: [
+      toc1: [
         '第一章 在金先生家',
         '第二章 但发送的烦恼暗示法',
         '第三章 撒都爹路飞often'
@@ -78,11 +100,17 @@ export default {
                         <p>比如，生活中有些时候我帮了别人一个小忙，别人为了感谢给我发个红包什么的，我会很不好意思收这个红包，认为别人是不想欠这个人情。但其实换个思路，这个时候是可以大大方方的收下这个红包的。一方面这是你付出的合理回报，另一方面如果别人不想欠你人情，你也没有必要留着这份人情，你情我愿下的人情才弥足珍贵。</p>
                         <p>再者，我们生活工作的目标不都是希望从事自己喜欢的行业，也希望能有较好的物质生活，两者结合起来不是更好吗，如果从这个角度想，是不是小时候因为不情愿把自己喜欢的事情和金钱相提并论这种思维方式，导致了我们一开始就没有将喜好作为以后从事的工作的参考标准，而工作之后又总是抱怨当前的工作并不是自己真心喜欢的行业呢？</p>`
         }
-      ]
+      ],
+      chapterNotes: []
     }
   },
   mounted () {
     this.getNotes()
+  },
+  computed: {
+    toc () {
+      return this.chapterNotes.map(o => o.chapterName ? o.chapterName : 'Unknown')
+    }
   },
   methods: {
     getNotes () {
@@ -90,6 +118,7 @@ export default {
       const bookId = this.$route.params.bookId
       axios.get('http://localhost:9527/ebook/note/all/' + bookId).then(response => {
         if (response.data.code === 2000) {
+          this.chapterNotes = response.data.data
           console.log(response.data.data)
         } else {
           console.log(response)

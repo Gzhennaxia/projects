@@ -27,7 +27,7 @@ public class NoteController {
         return Result.success();
     }
 
-    @GetMapping("/all/{booId}")
+    @GetMapping("/all/{bookId}")
     public Result getNotes(@PathVariable Integer bookId) {
         return Result.success(noteService.getNotes(bookId));
     }

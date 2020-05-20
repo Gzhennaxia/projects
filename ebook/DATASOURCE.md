@@ -81,10 +81,10 @@ PRIMARY KEY ( `id` )
 | id    | int(16) unsigned | primary key |
 | book_id | int(4) unsigned | book key |
 | type | int(4) unsigned | 1:金句<br/>2:生僻字<br/>3:成语<br/>4:人名<br/>5:书名<br/>6:事件<br/>7:现象<br/>8:概念<br/> |
-| selectedText | varchar(255) | 选中的文本 |
-| representativeText | varchar(255) | 整句 |
+| selected_text | varchar(255) | 选中的文本 |
+| representative_text | varchar(255) | 整句 |
 | location | varchar(255) | 位置 |
-| chapterId | int(16) | chapter key |
+| chapter_id | int(16) | chapter key |
 | comment_id | int(16) unsigned | 评论 |
 | color | int(4) unsigned | 1<span style="padding-left:2px;">:<span> <i class="fa fa-circle" style="color: #33D42D"></i><br/>2: <i class="fa fa-circle" style="color: #3CA3FF"></i><br/>3: <i class="fa fa-circle" style="color: #FECF0B"></i> |
 

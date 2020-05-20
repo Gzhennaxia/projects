@@ -1,6 +1,6 @@
 package com.gzhennaxia.ebook.mapper.annotation;
 
-import com.gzhennaxia.ebook.entity.Quote;
+import com.gzhennaxia.ebook.po.AnnotationPo;
 
 import java.util.List;
 
@@ -10,5 +10,13 @@ import java.util.List;
  */
 public interface AnnotationMapper {
 
-    List<Quote> selectAll();
+    /**
+     * 查找指定 book 的所有笔记
+     *
+     * @param assetId book key in iBook.
+     * @return notes.
+     * @author bli@skystartrade.com
+     * @date 2020-05-20 12:13
+     */
+    List<AnnotationPo> selectAll(String assetId);
 }

@@ -1,6 +1,6 @@
 package com.gzhennaxia.common.utils;
 
-import com.gzhennaxia.common.enums.ResultEnum;
+import com.gzhennaxia.common.enums.CodeEnum;
 import lombok.Data;
 
 /**
@@ -16,13 +16,13 @@ public class Result<T> {
 
     private T data;
 
-    private Result(ResultEnum codeEnum) {
+    private Result(CodeEnum codeEnum) {
         this.code = codeEnum.getCode();
         this.message = codeEnum.getMessage();
     }
 
     public static Result success() {
-        return new Result(ResultEnum.SUCCESS);
+        return new Result(CodeEnum.SUCCESS);
     }
 
     public static Result success(Object data) {

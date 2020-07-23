@@ -7,7 +7,7 @@ import lombok.Getter;
  * @date 2020-05-06 19:40
  */
 @Getter
-public enum ResultEnum {
+public enum CodeEnum {
 
     SUCCESS(2000, "SUCCESS");
 
@@ -15,7 +15,7 @@ public enum ResultEnum {
 
     private String message;
 
-    ResultEnum(Integer code, String message) {
+    CodeEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
     }

@@ -1,5 +1,6 @@
 package com.gzhennaxia.ledger.demo.apache.commons.csv;
 
+import com.gzhennaxia.ledger.entity.AliPayLedgerItem;
 import com.gzhennaxia.ledger.entity.WeChatLedgerItem;
 import com.gzhennaxia.ledger.utils.BeanConverter;
 import org.apache.commons.csv.CSVFormat;
@@ -16,20 +17,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Read / Write CSV files in Java using Apache Commons CSV
- * https://www.callicoder.com/java-read-write-csv-file-apache-commons-csv/
- *
  * @author bo li
- * @date 2020-07-22 12:09
+ * @date 2020-08-04 10:01
  */
-public class CSVDemo {
+public class AliDemo {
 
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/微信支付账单(20200716-20200726).csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/20200716-20200726.csv";
+    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/io/alipay_record_20200729_0829_2.csv";
+    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200729_0829.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/7/16 11:20"));
+        fun(dateFormat.parse("2020/7/25 00:20"));
     }
 
 
@@ -42,6 +40,7 @@ public class CSVDemo {
         // 选中CSV文件后点击空格预览，也能正常显示中文。但用Excel打开时，就变成一堆乱码。
         // 原因是Mac下文本的默认编码是UTF-8，而Excel对中文的处理是GBK编码。
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(OUT_FILE_PATH), "gbk"));
+//        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(OUT_FILE_PATH)));
 //        BufferedWriter writer = Files.newBufferedWriter(Paths.get(OUT_FILE_PATH + System.currentTimeMillis() + ".csv"));
         CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
                 .withHeader("日期", "时间", "类别", "名称", "金额(¥)", "数量", "支付方式", "渠道", "备注"));
@@ -52,38 +51,70 @@ public class CSVDemo {
 
         for (CSVRecord record : parser) {
 
-            WeChatLedgerItem item = BeanConverter.convert2WeChatLedgerItem(record);
+            AliPayLedgerItem item = BeanConverter.convert2AliPayLedgerItem(record);
             if (item != null) {
-                Date transactionTime = item.getTransactionTime();
-                calendar.setTime(transactionTime);
+                Date dealCreateTime = item.getDealCreateTime();
+                calendar.setTime(dealCreateTime);
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
                 int minute = calendar.get(Calendar.MINUTE);
-                if (transactionTime.after(startTime)) {
-                    if ("支出".equals(item.getIncomeOrExpenditure())) {
+                if (dealCreateTime.after(startTime)) {
+                    if (item.getIncomeOrExpenditure().startsWith("支出")) {
                         String counterparty = item.getCounterparty();
                         String productName = item.getProductName();
                         String categroy = "";
-                        String name = "";
+                        String name = productName;
                         String count = "";
-                        String payType = "";
-                        if ("零钱".equals(item.getPayType())) {
-                            payType = "微信";
-                        } else if ("交通银行(0147)".equals(item.getPayType())) {
-                            payType = "微信-银行卡";
-                        }
+                        String payType = "支付宝";
                         String channel = "";
                         String remark = "";
                         switch (counterparty) {
-                            case "不必再憶":
+                            case "恛憶":
                                 categroy = "早餐";
-                                if ("¥5.00".equals(item.getMoney())) name = "肉包子*1、菜包子*1、茶叶蛋*1";
-                                if ("¥4.50".equals(item.getMoney())) name = "菜包子*2、茶叶蛋*1";
+                                if ("5.00".equals(item.getMoney())) name = "肉包子*1、菜包子*1、茶叶蛋*1";
+                                if ("4.50".equals(item.getMoney())) name = "菜包子*2、茶叶蛋*1";
                                 count = "1份";
-
                                 channel = "楼下包子铺";
                                 break;
+                            case "拼多多平台商户":
+                                categroy = "网购";
+                                count = "1个";
+                                channel = "拼多多APP";
+                                break;
+                            case "香火肥肠":
+                                if (7 < hour && hour <= 13) {
+                                    categroy = "午餐";
+                                } else if (13 < hour && hour <= 19) {
+                                    categroy = "晚餐";
+                                } else if (19 < hour || hour <= 7) {
+                                    categroy = "夜宵";
+                                }
+                                count = "1次";
+                                channel = "楼下肥肠店";
+                                break;
+                            case "天猫超市":
+                                categroy = "网购";
+                                count = "1次";
+                                channel = "淘宝-天猫超市";
+                                break;
+                            case "花呗":
+                                categroy = "还款";
+                                count = "1次";
+                                channel = "支付宝-花呗";
+                                break;
+                            case "当当网":
+                                categroy = "网购";
+                                count = "1次";
+                                channel = "当当APP";
+                                break;
+                            case "武汉市哈哈便利科技有限公司":
+                                categroy = "饮品";
+                                count = "1次";
+                                channel = "公司楼道自动售卖机";
+                                break;
+
+
                             case "路...一直在":
                                 if (7 < hour && hour <= 13) {
                                     categroy = "午餐";
@@ -95,7 +126,7 @@ public class CSVDemo {
                                 count = "1份";
                                 channel = "羊肉饸饹面";
                                 break;
-                            case "美团点评平台商户":
+                            case "美团点评":
                                 if (7 < hour && hour <= 13) {
                                     categroy = "午餐";
                                 } else if (13 < hour && hour <= 19) {
@@ -141,9 +172,21 @@ public class CSVDemo {
                                 channel = "联通手机营业厅APP";
                                 name = "中国联通-美团外卖满10减10满减券";
                                 break;
-                            case "":
-
+                            case "借呗还款":
+                                categroy = "还款";
+                                count = "1次";
+                                channel = "支付宝-借呗";
                                 break;
+                        }
+                        if (productName.startsWith("相互宝")) {
+                            categroy = "保险";
+                            count = "1期";
+                            channel = "支付宝APP";
+                        }
+                        if (productName.startsWith("天猫超市卡")) {
+                            categroy = "充值";
+                            count = "1次";
+                            channel = "天猫APP";
                         }
                         if ("北京摩拜科技有限公司".equals(counterparty) && "车费代扣".equals(productName)) {
                             categroy = "单车";
@@ -153,11 +196,11 @@ public class CSVDemo {
                             name = "美团单车";
                         }
                         csvPrinter.printRecord(
-                                date.format(item.getTransactionTime()),
-                                time.format(item.getTransactionTime()),
+                                date.format(dealCreateTime),
+                                time.format(dealCreateTime),
                                 categroy,
                                 name,
-                                item.getMoney().substring(1),
+                                item.getMoney(),
                                 count,
                                 payType,
                                 channel,
@@ -172,4 +215,5 @@ public class CSVDemo {
         }
         csvPrinter.flush();
     }
+
 }

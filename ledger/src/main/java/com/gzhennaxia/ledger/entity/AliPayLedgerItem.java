@@ -12,16 +12,42 @@ import java.util.Date;
  */
 @Data
 public class AliPayLedgerItem {
-    交易号                  ,商家订单号               ,交易创建时间              ,付款时间                ,最近修改时间              ,交易来源地     ,类型              ,交易对方            ,商品名称                ,金额（元）   ,收/支     ,交易状态    ,服务费（元）   ,成功退款（元）  ,备注                  ,资金状态     ,
-    /**
-     * 交易时间
-     */
-    private Date transactionTime;
 
     /**
-     * 交易类型
+     * 交易号
      */
-    private String transactionType;
+    private String transactionNumber;
+
+    /**
+     * 商家订单号
+     */
+    private String merchantOrderId;
+
+    /**
+     * 交易创建时间
+     */
+    private Date dealCreateTime;
+
+    /**
+     * 付款时间
+     */
+    private Date payTime;
+
+    /**
+     * 最近修改时间
+     */
+    private Date lastUpdateTime;
+
+    /**
+     * 交易来源地
+     */
+    private String dealSource;
+
+    /**
+     * 类型
+     */
+    private String type;
+
 
     /**
      * 交易对方
@@ -29,14 +55,10 @@ public class AliPayLedgerItem {
     private String counterparty;
 
     /**
-     * 商品
+     * 商品名称
      */
     private String productName;
 
-    /**
-     * 收/支
-     */
-    private String incomeOrExpenditure;
 
     /**
      * 金额(元)
@@ -44,45 +66,42 @@ public class AliPayLedgerItem {
     private String money;
 
     /**
-     * 支付方式
+     * 收/支
      */
-    private String payType;
+    private String incomeOrExpenditure;
 
     /**
-     * 当前状态
+     * 交易状态
      */
     private String status;
 
-    /**
-     * 交易单号
-     */
-    private String transactionNumber;
 
     /**
-     * 商户单号
+     * 服务费（元）
      */
-    private String merchantNumber;
+    private String serviceFee;
+
+
+    /**
+     * 成功退款（元）
+     */
+    private String refundMoney;
+
 
     /**
      * 备注
      */
     private String remark;
 
+
+    /**
+     * 资金状态
+     */
+    private String fundStatus;
+
+
     public AliPayLedgerItem() {
 
     }
 
-    public AliPayLedgerItem(CSVRecord record) throws Exception {
-        transactionTime = DateUtils.parse(record.get(0));
-        transactionType = record.get(1);
-        counterparty = record.get(2);
-        productName = record.get(3);
-        incomeOrExpenditure = record.get(4);
-        money = record.get(5);
-        payType = record.get(6);
-        status = record.get(7);
-        transactionNumber = record.get(8);
-        merchantNumber = record.get(9);
-        remark = record.get(10);
-    }
 }

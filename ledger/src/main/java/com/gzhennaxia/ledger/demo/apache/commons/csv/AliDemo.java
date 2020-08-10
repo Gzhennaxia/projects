@@ -1,5 +1,6 @@
 package com.gzhennaxia.ledger.demo.apache.commons.csv;
 
+import com.gzhennaxia.ledger.demo.apache.commons.io.EncodingDetectDemo;
 import com.gzhennaxia.ledger.entity.AliPayLedgerItem;
 import com.gzhennaxia.ledger.entity.WeChatLedgerItem;
 import com.gzhennaxia.ledger.utils.BeanConverter;
@@ -22,12 +23,15 @@ import java.util.Date;
  */
 public class AliDemo {
 
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/io/alipay_record_20200729_0829_2.csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200729_0829.csv";
+    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200806_0835_1.csv";
+    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200806_0835_2.csv";
+    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200806_0835.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
+        EncodingDetectDemo.convertEncoding("GBK", "UTF-8", FILE_PATH, CSV_FILE_PATH);
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/7/25 00:20"));
+        fun(dateFormat.parse("2020/7/28 18:19"));
     }
 
 
@@ -160,9 +164,26 @@ public class AliDemo {
                             case "深圳市地铁相关运营主体":
                                 categroy = "地铁";
                                 count = "1次";
-
                                 channel = "乘车码小程序";
                                 break;
+                        }
+                        if (counterparty.startsWith("7-Eleven")) {
+                            categroy = "超市";
+                            count = "1次";
+                            payType = "支付宝-花呗";
+                            channel = "7-Eleven便利店";
+                        }
+                        if (counterparty.startsWith("黔派虾子羊肉粉")) {
+                            if (7 < hour && hour <= 13) {
+                                categroy = "午餐";
+                            } else if (13 < hour && hour <= 19) {
+                                categroy = "晚餐";
+                            } else if (19 < hour || hour <= 7) {
+                                categroy = "夜宵";
+                            }
+                            count = "1次";
+                            payType = "支付宝-花呗";
+                            channel = "黔派虾子羊肉粉-天安店";
                         }
                         switch (productName) {
                             case "中国联通-美团外卖满10减10满减券":

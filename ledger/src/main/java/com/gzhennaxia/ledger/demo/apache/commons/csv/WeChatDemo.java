@@ -24,8 +24,8 @@ import java.util.Date;
  */
 public class WeChatDemo {
 
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/微信支付账单(20200705-20200805).csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/20200705-20200805.csv";
+    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/微信支付账单(20200721-20200821).csv";
+    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/20200721-20200821.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
@@ -55,7 +55,9 @@ public class WeChatDemo {
             WeChatLedgerItem item = BeanConverter.convert2WeChatLedgerItem(record);
             if (item != null) {
                 Date transactionTime = item.getTransactionTime();
+                String money = item.getMoney().substring(1);
                 calendar.setTime(transactionTime);
+                int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -63,6 +65,7 @@ public class WeChatDemo {
                 if (transactionTime.after(startTime)) {
                     if ("支出".equals(item.getIncomeOrExpenditure())) {
                         String counterparty = item.getCounterparty();
+                        String transactionType = item.getTransactionType();
                         String productName = item.getProductName();
                         String categroy = "";
                         String name = "";
@@ -128,7 +131,7 @@ public class WeChatDemo {
                                 channel = "乘车码小程序";
                                 break;
                             case "发给Soaic":
-                                name="快餐";
+                                name = "快餐";
                                 categroy = "晚餐";
                                 count = "1次";
                                 channel = "同事代付";
@@ -149,16 +152,44 @@ public class WeChatDemo {
                         if ("北京摩拜科技有限公司".equals(counterparty) && "车费代扣".equals(productName)) {
                             categroy = "单车";
                             count = "1次";
-
                             channel = "美团APP";
                             name = "美团单车";
+                        }
+                        if ("转账".equals(transactionType)) {
+                            if ("Boris".equals(counterparty)) continue;
+                            count = "1次";
+                            channel = "微信";
+                            name = transactionType + "给" + counterparty;
+                        }
+                        if ("微信红包（单发）".equals(transactionType)) {
+                            if ("发给Boris".equals(counterparty)) continue;
+                            count = "1次";
+                            channel = "微信";
+                            name = transactionType + counterparty;
+                        }
+                        if ("丽珍".equals(counterparty)) {
+                            if ("2100.00".equals(money)) {
+                                categroy = "房租";
+                                count = "1次";
+                                channel = "微信转账";
+                                name = year + "年" + (month - 1) + "月 " + "房租";
+                                remark = "总共" + money + "，和老蒋平摊";
+                                money = Double.valueOf(money) / 2 + "";
+                            } else {
+                                categroy = "物业水电";
+                                count = "1次";
+                                channel = "微信转账";
+                                name = year + "年" + (month - 1) + "月 " + "物业+水电";
+                                remark = "总共" + money + "，和老蒋平摊";
+                                money = Double.valueOf(money) / 2 + "";
+                            }
                         }
                         csvPrinter.printRecord(
                                 date.format(item.getTransactionTime()),
                                 time.format(item.getTransactionTime()),
                                 categroy,
                                 name,
-                                item.getMoney().substring(1),
+                                money,
                                 count,
                                 payType,
                                 channel,

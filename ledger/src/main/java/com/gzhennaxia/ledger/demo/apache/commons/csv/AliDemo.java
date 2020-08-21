@@ -23,15 +23,15 @@ import java.util.Date;
  */
 public class AliDemo {
 
-    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200806_0835_1.csv";
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200806_0835_2.csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200806_0835.csv";
+    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200821_0819_1.csv";
+    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200821_0819_2.csv";
+    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200821_0819_3.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         EncodingDetectDemo.convertEncoding("GBK", "UTF-8", FILE_PATH, CSV_FILE_PATH);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/7/28 18:19"));
+        fun(dateFormat.parse("2020/8/5 01:01"));
     }
 
 
@@ -66,6 +66,7 @@ public class AliDemo {
                 if (dealCreateTime.after(startTime)) {
                     if (item.getIncomeOrExpenditure().startsWith("支出")) {
                         String counterparty = item.getCounterparty();
+                        String dealSource = item.getDealSource();
                         String productName = item.getProductName();
                         String categroy = "";
                         String name = productName;
@@ -96,6 +97,17 @@ public class AliDemo {
                                 }
                                 count = "1次";
                                 channel = "楼下肥肠店";
+                                break;
+                            case "马维良":
+                                if (7 < hour && hour <= 13) {
+                                    categroy = "午餐";
+                                } else if (13 < hour && hour <= 19) {
+                                    categroy = "晚餐";
+                                } else if (19 < hour || hour <= 7) {
+                                    categroy = "夜宵";
+                                }
+                                count = "1次";
+                                channel = "公司附近兰州拉面门店";
                                 break;
                             case "天猫超市":
                                 categroy = "网购";
@@ -173,6 +185,12 @@ public class AliDemo {
                             payType = "支付宝-花呗";
                             channel = "7-Eleven便利店";
                         }
+                        if (counterparty.startsWith("1点点")) {
+                            categroy = "饮品";
+                            count = "1次";
+                            payType = "支付宝-花呗";
+                            channel = "1点点门店";
+                        }
                         if (counterparty.startsWith("黔派虾子羊肉粉")) {
                             if (7 < hour && hour <= 13) {
                                 categroy = "午餐";
@@ -215,6 +233,16 @@ public class AliDemo {
 
                             channel = "美团APP";
                             name = "美团单车";
+                        }
+                        if ("中国联通".equals(counterparty) && "美团外卖满10减10满减券".equals(productName)) {
+                            categroy = "外卖券";
+                            count = "1次";
+                            channel = "联通手机营业厅APP";
+                        }
+                        if ("淘宝".equals(dealSource)) {
+                                categroy = "网购";
+                                count = "1次";
+                                channel = "淘宝APP";
                         }
                         csvPrinter.printRecord(
                                 date.format(dealCreateTime),

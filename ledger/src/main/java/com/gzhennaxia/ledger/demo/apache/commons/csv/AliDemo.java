@@ -23,15 +23,15 @@ import java.util.Date;
  */
 public class AliDemo {
 
-    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200821_0819_1.csv";
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200821_0819_2.csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200821_0819_3.csv";
+    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200901_0912_1.csv";
+    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200901_0912_2.csv";
+    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200901_0912_3.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         EncodingDetectDemo.convertEncoding("GBK", "UTF-8", FILE_PATH, CSV_FILE_PATH);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/8/5 01:01"));
+        fun(dateFormat.parse("2020/8/20 00:00"));
     }
 
 
@@ -129,8 +129,11 @@ public class AliDemo {
                                 count = "1次";
                                 channel = "公司楼道自动售卖机";
                                 break;
-
-
+                            case "高德打车入驻商户":
+                                categroy = "打车";
+                                count = "1次";
+                                channel = "高德地图APP";
+                                break;
                             case "路...一直在":
                                 if (7 < hour && hour <= 13) {
                                     categroy = "午餐";
@@ -240,9 +243,9 @@ public class AliDemo {
                             channel = "联通手机营业厅APP";
                         }
                         if ("淘宝".equals(dealSource)) {
-                                categroy = "网购";
-                                count = "1次";
-                                channel = "淘宝APP";
+                            categroy = "网购";
+                            count = "1次";
+                            channel = "淘宝APP";
                         }
                         csvPrinter.printRecord(
                                 date.format(dealCreateTime),

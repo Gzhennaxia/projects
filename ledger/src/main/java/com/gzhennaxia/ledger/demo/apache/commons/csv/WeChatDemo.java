@@ -24,12 +24,12 @@ import java.util.Date;
  */
 public class WeChatDemo {
 
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/微信支付账单(20200721-20200821).csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/20200721-20200821.csv";
+    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/微信支付账单(20200801-20200901)2.csv";
+    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/20200801-20200901-2.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/7/25 15:44"));
+        fun(dateFormat.parse("2020/8/20 00:00"));
     }
 
 
@@ -130,11 +130,15 @@ public class WeChatDemo {
                                 count = "1次";
                                 channel = "乘车码小程序";
                                 break;
-                            case "发给Soaic":
-                                name = "快餐";
-                                categroy = "晚餐";
+                            case "深圳通":
+                                categroy = "公交";
                                 count = "1次";
-                                channel = "同事代付";
+                                channel = "深圳通小程序";
+                                break;
+                            case "京东商城平台商户":
+                                categroy = "网购";
+                                count = "1次";
+                                channel = "京东APP";
                                 break;
                         }
                         switch (productName) {
@@ -163,9 +167,31 @@ public class WeChatDemo {
                         }
                         if ("微信红包（单发）".equals(transactionType)) {
                             if ("发给Boris".equals(counterparty)) continue;
-                            count = "1次";
-                            channel = "微信";
-                            name = transactionType + counterparty;
+                            switch (counterparty) {
+                                case "发给Zal Zhang":
+                                    name = "快餐";
+                                    categroy = "晚餐";
+                                    count = "1次";
+                                    channel = "亮哥代付";
+                                    break;
+                                case "发给奎":
+                                    name = "快餐";
+                                    categroy = "晚餐";
+                                    count = "1次";
+                                    channel = "西奎代付";
+                                    break;
+                                case "发给Soaic":
+                                    name = "快餐";
+                                    categroy = "晚餐";
+                                    count = "1次";
+                                    channel = "肖赛代付";
+                                    break;
+                                default:
+                                    count = "1次";
+                                    channel = "微信";
+                                    name = transactionType + counterparty;
+                                    break;
+                            }
                         }
                         if ("丽珍".equals(counterparty)) {
                             if ("2100.00".equals(money)) {

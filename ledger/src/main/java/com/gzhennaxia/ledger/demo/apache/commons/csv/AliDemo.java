@@ -23,15 +23,15 @@ import java.util.Date;
  */
 public class AliDemo {
 
-    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200901_0912_1.csv";
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200901_0912_2.csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200901_0912_3.csv";
+    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200916_0902_1.csv";
+    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200916_0902_2.csv";
+    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20200916_0902_3.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         EncodingDetectDemo.convertEncoding("GBK", "UTF-8", FILE_PATH, CSV_FILE_PATH);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/8/20 00:00"));
+        fun(dateFormat.parse("2020/8/31 19:18"));
     }
 
 
@@ -154,7 +154,6 @@ public class AliDemo {
                                     categroy = "夜宵";
                                 }
                                 count = "1份";
-
                                 channel = "美团外卖APP";
                                 break;
                             case "肯德基":
@@ -166,7 +165,6 @@ public class AliDemo {
                                     categroy = "夜宵";
                                 }
                                 count = "1份";
-
                                 channel = "肯德基门店";
                                 break;
                             case "唯客（南油）":
@@ -180,6 +178,32 @@ public class AliDemo {
                                 categroy = "地铁";
                                 count = "1次";
                                 channel = "乘车码小程序";
+                                break;
+                            case "阿香竞彩":
+                                categroy = "竞彩";
+                                count = "1次";
+                                channel = "阿香竞彩店APP";
+                                break;
+                            case "饿了么":
+                                if (7 < hour && hour <= 13) {
+                                    categroy = "午餐";
+                                } else if (13 < hour && hour <= 19) {
+                                    categroy = "晚餐";
+                                } else if (19 < hour || hour <= 7) {
+                                    categroy = "夜宵";
+                                }
+                                count = "1次";
+                                channel = "饿了么APP";
+                                break;
+                            case "友宝":
+                                categroy = "饮品";
+                                count = "1瓶";
+                                channel = "友宝售货机";
+                                break;
+                            case "友宝售货机(广电集团3)":
+                                categroy = "饮品";
+                                count = "1瓶";
+                                channel = "友宝售货机";
                                 break;
                         }
                         if (counterparty.startsWith("7-Eleven")) {
@@ -210,7 +234,6 @@ public class AliDemo {
                             case "中国联通-美团外卖满10减10满减券":
                                 categroy = "优惠券";
                                 count = "1张";
-
                                 channel = "联通手机营业厅APP";
                                 name = "中国联通-美团外卖满10减10满减券";
                                 break;
@@ -218,6 +241,16 @@ public class AliDemo {
                                 categroy = "还款";
                                 count = "1次";
                                 channel = "支付宝-借呗";
+                                break;
+                            case "百里臣金地分店消费":
+                                categroy = "饮品";
+                                count = "1次";
+                                channel = "小区门口便利店";
+                                break;
+                            case "luckincoffee":
+                                categroy = "饮品";
+                                count = "1次";
+                                channel = "luckincoffee APP";
                                 break;
                         }
                         if (productName.startsWith("相互宝")) {
@@ -242,10 +275,21 @@ public class AliDemo {
                             count = "1次";
                             channel = "联通手机营业厅APP";
                         }
+                        if ("中国联通".equals(counterparty) && "美团外卖满10减10满减券".equals(productName)) {
+                            categroy = "优惠券";
+                            count = "1张";
+                            channel = "联通手机营业厅APP";
+                            name = "中国联通-美团外卖满5减5满减券";
+                        }
                         if ("淘宝".equals(dealSource)) {
                             categroy = "网购";
                             count = "1次";
                             channel = "淘宝APP";
+                        }
+                        if ("中国联通".equals(counterparty) && productName.contains("交费")) {
+                            categroy = "话费";
+                            count = "1次";
+                            channel = "联通手机营业厅APP";
                         }
                         csvPrinter.printRecord(
                                 date.format(dealCreateTime),

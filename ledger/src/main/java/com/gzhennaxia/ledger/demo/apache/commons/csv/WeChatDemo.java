@@ -24,12 +24,12 @@ import java.util.Date;
  */
 public class WeChatDemo {
 
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/微信支付账单(20200801-20200901)2.csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/20200801-20200901-2.csv";
+    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/微信支付账单(20200816-20200916)2.csv";
+    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/20200816-20200916-2.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/8/20 00:00"));
+        fun(dateFormat.parse("2020/8/31 19:18"));
     }
 
 
@@ -198,14 +198,14 @@ public class WeChatDemo {
                                 categroy = "房租";
                                 count = "1次";
                                 channel = "微信转账";
-                                name = year + "年" + (month - 1) + "月 " + "房租";
+                                name = year + "年" + (month + 1) + "月 " + "房租";
                                 remark = "总共" + money + "，和老蒋平摊";
                                 money = Double.valueOf(money) / 2 + "";
                             } else {
                                 categroy = "物业水电";
                                 count = "1次";
                                 channel = "微信转账";
-                                name = year + "年" + (month - 1) + "月 " + "物业+水电";
+                                name = year + "年" + month + "月 " + "物业+水电";
                                 remark = "总共" + money + "，和老蒋平摊";
                                 money = Double.valueOf(money) / 2 + "";
                             }

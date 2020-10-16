@@ -3,6 +3,8 @@ package com.gzhennaxia.demo;
 import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @author bo li
@@ -37,16 +39,29 @@ public class Demo {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        Demo demo10 = new Demo();
-        for (int i = 0; i < 2; i++) {
-            new Thread(() -> {
-                for (int j = 0; j < 10000; j++) {
-//                    demo10.inc();
-                    demo10.incCAS();
-                }
-            }).start();
+//        Demo demo10 = new Demo();
+//        for (int i = 0; i < 2; i++) {
+//            new Thread(() -> {
+//                for (int j = 0; j < 10000; j++) {
+////                    demo10.inc();
+//                    demo10.incCAS();
+//                }
+//            }).start();
+//        }
+//        Thread.sleep(2000L);
+//        System.out.println(demo10.value);
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("asdf");
+        System.out.println(list);
+//        Iterator<String> iterator = list.iterator();
+//        while (iterator.hasNext()){
+//            String next = iterator.next();
+//            iterator.remove();
+//        }
+        for (String s : list) {
+            list.add(";afsdlkl;df");
         }
-        Thread.sleep(2000L);
-        System.out.println(demo10.value);
+        System.out.println(list);
     }
 }

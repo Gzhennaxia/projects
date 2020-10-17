@@ -5,6 +5,11 @@ package com.gzhennaxia.demo.responsibility_chain;
  * @date 2020-10-16 17:37
  */
 public abstract class LeaveRequestHandler {
+    int threshold;
 
-    public abstract void process(LeaveRequest leaveRequest);
+    public LeaveRequestHandler(int threshold) {
+        this.threshold = threshold;
+    }
+
+    public abstract Boolean handle(LeaveRequest leaveRequest);
 }

@@ -13,6 +13,13 @@ public class Worker {
 
     private static Boolean requestLeave(int days) {
         LeaveRequest leaveRequest = new LeaveRequest(days);
-        return LeaveRequestHandlerChain.process(leaveRequest);
+        SupervisorHandler supervisorHandler = new SupervisorHandler(3);
+        ManagerHandler managerHandler = new ManagerHandler(7);
+        GeneralManagerHandler generalManagerHandler = new GeneralManagerHandler(Integer.MAX_VALUE);
+        LeaveRequestHandlerChain chain = new LeaveRequestHandlerChain();
+        chain.addHandler(supervisorHandler);
+        chain.addHandler(managerHandler);
+        chain.addHandler(generalManagerHandler);
+        return chain.process(leaveRequest);
     }
 }

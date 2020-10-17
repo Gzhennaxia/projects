@@ -6,8 +6,9 @@ import java.util.Random;
  * @author bo li
  * @date 2020-10-16 17:40
  */
-public class SupervisorHandler extends LeaveRequestHandler {
-    public SupervisorHandler(int threshold) {
+public class GeneralManagerHandler extends LeaveRequestHandler {
+
+    public GeneralManagerHandler(int threshold) {
         super(threshold);
     }
 

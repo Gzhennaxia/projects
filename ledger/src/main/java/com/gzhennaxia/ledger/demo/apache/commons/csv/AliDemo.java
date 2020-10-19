@@ -23,15 +23,15 @@ import java.util.Date;
  */
 public class AliDemo {
 
-    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201008_2305_1.csv";
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201008_2305_2.csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201008_2305_3.csv";
+    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201016_0038_1.csv";
+    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201016_0038_2.csv";
+    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201016_0038_3.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         EncodingDetectDemo.convertEncoding("GBK", "UTF-8", FILE_PATH, CSV_FILE_PATH);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/9/15 00:00"));
+        fun(dateFormat.parse("2020/10/08 03:13"));
     }
 
 
@@ -143,7 +143,18 @@ public class AliDemo {
                                     categroy = "夜宵";
                                 }
                                 count = "1份";
-                                channel = "羊肉饸饹面";
+                                channel = "谚语羊肉饸饹面";
+                                break;
+                            case "谚语羊肉饸饹面":
+                                if (7 < hour && hour <= 13) {
+                                    categroy = "午餐";
+                                } else if (13 < hour && hour <= 19) {
+                                    categroy = "晚餐";
+                                } else if (19 < hour || hour <= 7) {
+                                    categroy = "夜宵";
+                                }
+                                count = "1份";
+                                channel = "谚语羊肉饸饹面";
                                 break;
                             case "美团点评":
                                 if (7 < hour && hour <= 13) {

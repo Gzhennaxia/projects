@@ -7,10 +7,8 @@ package com.gzhennaxia.demo.singleton;
 public enum Singleton7 {
     INSTANCE;
 
-    private static int aaa;
 
     private Singleton7() {
-        aaa = 1;
     }
 
     public static Singleton7 getInstance() {

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
  */
 @org.springframework.core.annotation.Order(1)
 @Component
-public class Order {
+public class Order2 {
 
-    public Order() {
+    public Order2() {
         System.out.println("@org.springframework.core.annotation.Order(1)");
     }
 }

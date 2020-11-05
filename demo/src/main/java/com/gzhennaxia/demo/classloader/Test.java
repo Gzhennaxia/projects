@@ -4,6 +4,7 @@ import sun.misc.Launcher;
 import sun.misc.URLClassPath;
 
 import java.net.URL;
+import java.util.HashMap;
 
 /**
  * @author bo li
@@ -15,6 +16,7 @@ public class Test {
         URL[] urLs = Launcher.getBootstrapClassPath().getURLs();
         for (URL urL : urLs) {
             System.out.println(urL);
+            new HashMap<>();
         }
     }
 }

@@ -23,15 +23,15 @@ import java.util.Date;
  */
 public class AliDemo {
 
-    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201027_0903_1.csv";
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201027_0903_2.csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201027_0903_3.csv";
+    private final static String FILE_PATH = "/Users/gzhennaxia/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201121_1614_1.csv";
+    private final static String CSV_FILE_PATH = "/Users/gzhennaxia/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201121_1614_2.csv";
+    private final static String OUT_FILE_PATH = "/Users/gzhennaxia/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201121_1614_3.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         EncodingDetectDemo.convertEncoding("GBK", "UTF-8", FILE_PATH, CSV_FILE_PATH);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/10/18 11:42"));
+        fun(dateFormat.parse("2020/10/27 01:13"));
     }
 
 
@@ -70,7 +70,7 @@ public class AliDemo {
                         String productName = item.getProductName();
                         String categroy = "";
                         String name = productName;
-                        String count = "";
+                        String count = "1次";
                         String payType = "支付宝";
                         String channel = "";
                         String remark = "";
@@ -279,6 +279,9 @@ public class AliDemo {
                             categroy = "充值";
                             count = "1次";
                             channel = "天猫APP";
+                        }
+                        if (productName.startsWith("百里臣便利店金地分店消费")) {
+                            channel = "百里臣便利店金地分店";
                         }
                         if ("北京摩拜科技有限公司".equals(counterparty) && "车费代扣".equals(productName)) {
                             categroy = "单车";

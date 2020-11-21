@@ -24,12 +24,12 @@ import java.util.Date;
  */
 public class WeChatDemo {
 
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/微信支付账单(20200919-20201019).csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/20200919-20201019.csv";
+    private final static String CSV_FILE_PATH = "/Users/gzhennaxia/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/微信支付账单(20201026-20201121)-2.csv";
+    private final static String OUT_FILE_PATH = "/Users/gzhennaxia/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/20201026-20201121-2.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/10/4 22:56"));
+        fun(dateFormat.parse("2020/10/27 01:13"));
     }
 
 
@@ -69,7 +69,7 @@ public class WeChatDemo {
                         String productName = item.getProductName();
                         String categroy = "";
                         String name = "";
-                        String count = "";
+                        String count = "1次";
                         String payType = "";
                         if ("零钱".equals(item.getPayType())) {
                             payType = "微信";
@@ -152,6 +152,11 @@ public class WeChatDemo {
                             case "":
 
                                 break;
+                        }
+                        if (counterparty.equals("致远创想")&&productName.equals("沙尾工作室")){
+                            categroy="剪发";
+                            channel = "优剪沙尾工作室";
+                            name = "优剪";
                         }
                         if ("北京摩拜科技有限公司".equals(counterparty) && "车费代扣".equals(productName)) {
                             categroy = "单车";

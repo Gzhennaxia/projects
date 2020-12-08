@@ -23,15 +23,15 @@ import java.util.Date;
  */
 public class AliDemo {
 
-    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201207_0907_1.csv";
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201207_0907_2.csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201207_0907_3.csv";
+    private final static String FILE_PATH = "/Users/gzhennaxia/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201121_1614_1.csv";
+    private final static String CSV_FILE_PATH = "/Users/gzhennaxia/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201121_1614_2.csv";
+    private final static String OUT_FILE_PATH = "/Users/gzhennaxia/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201121_1614_3.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         EncodingDetectDemo.convertEncoding("GBK", "UTF-8", FILE_PATH, CSV_FILE_PATH);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/11/21 11:45"));
+        fun(dateFormat.parse("2020/10/27 01:13"));
     }
 
 
@@ -71,7 +71,7 @@ public class AliDemo {
                         String category = "";
                         String name = productName;
                         String money = item.getMoney();
-                        String count = "";
+                        String count = "1次";
                         String payType = "支付宝";
                         String channel = "";
                         String remark = "";
@@ -83,13 +83,13 @@ public class AliDemo {
                                 channel = "港龙桌球城(上沙店)";
                                 break;
                             case "老东北菜馆":
-                                category = getThreeMeals(hour);
+                                category = CSVUtils.getThreeMeals(hour);
                                 name = "饺子";
                                 count = "1次";
                                 channel = "小区门口老东北饺子馆";
                                 break;
                             case "重庆粉面":
-                                category = getThreeMeals(hour);
+                                category = CSVUtils.getThreeMeals(hour);
                                 if ("10.00".equals(money)) {
                                     name = "重庆小面";
                                 }
@@ -97,7 +97,7 @@ public class AliDemo {
                                 channel = "重庆粉面-沙尾店";
                                 break;
                             case "恛憶":
-                                category = getThreeMeals(hour);
+                                category = CSVUtils.getThreeMeals(hour);
                                 if ("5.00".equals(item.getMoney())) name = "肉包子*1、菜包子*1、茶叶蛋*1";
                                 if ("4.50".equals(item.getMoney())) name = "菜包子*2、茶叶蛋*1";
                                 count = "1份";
@@ -109,12 +109,12 @@ public class AliDemo {
                                 channel = "拼多多APP";
                                 break;
                             case "香火肥肠":
-                                category = getThreeMeals(hour);
+                                category = CSVUtils.getThreeMeals(hour);
                                 count = "1次";
                                 channel = "楼下肥肠店";
                                 break;
                             case "马维良":
-                                category = getThreeMeals(hour);
+                                category = CSVUtils.getThreeMeals(hour);
                                 switch (money) {
                                     case "15.00":
                                         name = "拉面";
@@ -152,22 +152,22 @@ public class AliDemo {
                                 channel = "高德地图APP";
                                 break;
                             case "路...一直在":
-                                category = getThreeMeals(hour);
+                                category = CSVUtils.getThreeMeals(hour);
                                 count = "1份";
                                 channel = "谚语羊肉饸饹面";
                                 break;
                             case "谚语羊肉饸饹面":
-                                category = getThreeMeals(hour);
+                                category = CSVUtils.getThreeMeals(hour);
                                 count = "1份";
                                 channel = "谚语羊肉饸饹面";
                                 break;
                             case "美团点评":
-                                category = getThreeMeals(hour);
+                                category = CSVUtils.getThreeMeals(hour);
                                 count = "1份";
                                 channel = "美团外卖APP";
                                 break;
                             case "肯德基":
-                                category = getThreeMeals(hour);
+                                category = CSVUtils.getThreeMeals(hour);
                                 count = "1份";
                                 channel = "肯德基门店";
                                 break;
@@ -189,7 +189,7 @@ public class AliDemo {
                                 channel = "阿香竞彩店APP";
                                 break;
                             case "饿了么":
-                                category = getThreeMeals(hour);
+                                category = CSVUtils.getThreeMeals(hour);
                                 count = "1次";
                                 channel = "饿了么APP";
                                 break;
@@ -217,13 +217,7 @@ public class AliDemo {
                             channel = "1点点门店";
                         }
                         if (counterparty.startsWith("黔派虾子羊肉粉")) {
-                            if (7 < hour && hour <= 13) {
-                                category = "午餐";
-                            } else if (13 < hour && hour <= 19) {
-                                category = "晚餐";
-                            } else if (19 < hour || hour <= 7) {
-                                category = "夜宵";
-                            }
+                            category = CSVUtils.getThreeMeals(hour);
                             count = "1次";
                             payType = "支付宝-花呗";
                             channel = "黔派虾子羊肉粉-天安店";
@@ -260,6 +254,9 @@ public class AliDemo {
                             category = "充值";
                             count = "1次";
                             channel = "天猫APP";
+                        }
+                        if (productName.startsWith("百里臣便利店金地分店消费")) {
+                            channel = "百里臣便利店金地分店";
                         }
                         if ("北京摩拜科技有限公司".equals(counterparty) && "车费代扣".equals(productName)) {
                             category = "单车";
@@ -314,17 +311,4 @@ public class AliDemo {
         csvPrinter.flush();
     }
 
-    private static String getThreeMeals(int hour) {
-        String category;
-        if (5 < hour && hour <= 10) {
-            category = "早餐";
-        } else if (10 < hour && hour <= 13) {
-            category = "午餐";
-        } else if (13 < hour && hour <= 19) {
-            category = "晚餐";
-        } else {
-            category = "夜宵";
-        }
-        return category;
-    }
 }

@@ -32,7 +32,6 @@ public class WeChatDemo {
         fun(dateFormat.parse("2020/11/21 13:13"));
     }
 
-
     private static void fun(Date startTime) throws IOException {
 
         BufferedReader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH));
@@ -67,9 +66,9 @@ public class WeChatDemo {
                         String counterparty = item.getCounterparty();
                         String transactionType = item.getTransactionType();
                         String productName = item.getProductName();
-                        String categroy = "";
+                        String category = "";
                         String name = "";
-                        String count = "";
+                        String count = "1次";
                         String payType = "";
                         if ("零钱".equals(item.getPayType())) {
                             payType = "微信";
@@ -80,70 +79,52 @@ public class WeChatDemo {
                         String remark = "";
                         switch (counterparty) {
                             case "不必再憶":
-                                categroy = "早餐";
+                                category = "早餐";
                                 if ("¥5.00".equals(item.getMoney())) name = "肉包子*1、菜包子*1、茶叶蛋*1";
                                 if ("¥4.50".equals(item.getMoney())) name = "菜包子*2、茶叶蛋*1";
                                 count = "1份";
                                 channel = "楼下包子铺";
                                 break;
                             case "路...一直在":
-                                if (7 < hour && hour <= 13) {
-                                    categroy = "午餐";
-                                } else if (13 < hour && hour <= 19) {
-                                    categroy = "晚餐";
-                                } else if (19 < hour || hour <= 7) {
-                                    categroy = "夜宵";
-                                }
+                                category = CSVUtils.getThreeMeals(hour);
                                 count = "1份";
                                 channel = "羊肉饸饹面";
                                 break;
                             case "美团点评平台商户":
-                                if (7 < hour && hour <= 13) {
-                                    categroy = "午餐";
-                                } else if (13 < hour && hour <= 19) {
-                                    categroy = "晚餐";
-                                } else if (19 < hour || hour <= 7) {
-                                    categroy = "夜宵";
-                                }
+                                category = CSVUtils.getThreeMeals(hour);
                                 count = "1份";
                                 channel = "美团外卖APP";
                                 break;
                             case "肯德基":
-                                if (7 < hour && hour <= 13) {
-                                    categroy = "午餐";
-                                } else if (13 < hour && hour <= 19) {
-                                    categroy = "晚餐";
-                                } else if (19 < hour || hour <= 7) {
-                                    categroy = "夜宵";
-                                }
+                                category = CSVUtils.getThreeMeals(hour);
                                 count = "1份";
                                 channel = "肯德基门店";
                                 break;
                             case "唯客（南油）":
-                                categroy = "晚餐";
+                                category = "晚餐";
                                 count = "1份";
                                 channel = "唯客门店";
                                 name = "快餐";
                                 break;
                             case "深圳市地铁相关运营主体":
-                                categroy = "地铁";
+                                category = "地铁";
                                 count = "1次";
                                 channel = "乘车码小程序";
                                 break;
                             case "深圳通":
-                                categroy = "公交";
+                                category = "公交";
                                 count = "1次";
                                 channel = "深圳通小程序";
                                 break;
                             case "京东商城平台商户":
-                                categroy = "网购";
+                                category = "网购";
                                 count = "1次";
                                 channel = "京东APP";
                                 break;
                         }
                         switch (productName) {
                             case "中国联通-美团外卖满10减10满减券":
-                                categroy = "优惠券";
+                                category = "优惠券";
                                 count = "1张";
 
                                 channel = "联通手机营业厅APP";
@@ -153,8 +134,13 @@ public class WeChatDemo {
 
                                 break;
                         }
+                        if (counterparty.equals("致远创想") && productName.equals("沙尾工作室")) {
+                            category = "剪发";
+                            channel = "优剪沙尾工作室";
+                            name = "优剪";
+                        }
                         if ("北京摩拜科技有限公司".equals(counterparty) && "车费代扣".equals(productName)) {
-                            categroy = "单车";
+                            category = "单车";
                             count = "1次";
                             channel = "美团APP";
                             name = "美团单车";
@@ -170,19 +156,19 @@ public class WeChatDemo {
                             switch (counterparty) {
                                 case "发给Zal Zhang":
                                     name = "快餐";
-                                    categroy = "晚餐";
+                                    category = "晚餐";
                                     count = "1次";
                                     channel = "亮哥代付";
                                     break;
                                 case "发给奎":
                                     name = "快餐";
-                                    categroy = "晚餐";
+                                    category = "晚餐";
                                     count = "1次";
                                     channel = "西奎代付";
                                     break;
                                 case "发给Soaic":
                                     name = "快餐";
-                                    categroy = "晚餐";
+                                    category = "晚餐";
                                     count = "1次";
                                     channel = "肖赛代付";
                                     break;
@@ -195,14 +181,14 @@ public class WeChatDemo {
                         }
                         if ("丽珍".equals(counterparty)) {
                             if ("2100.00".equals(money)) {
-                                categroy = "房租";
+                                category = "房租";
                                 count = "1次";
                                 channel = "微信转账";
                                 name = year + "年" + (month + 1) + "月 " + "房租";
                                 remark = "总共" + money + "，和老蒋平摊";
                                 money = Double.valueOf(money) / 2 + "";
                             } else {
-                                categroy = "物业水电";
+                                category = "物业水电";
                                 count = "1次";
                                 channel = "微信转账";
                                 name = year + "年" + month + "月 " + "物业+水电";
@@ -213,7 +199,7 @@ public class WeChatDemo {
                         csvPrinter.printRecord(
                                 date.format(item.getTransactionTime()),
                                 time.format(item.getTransactionTime()),
-                                categroy,
+                                category,
                                 name,
                                 money,
                                 count,

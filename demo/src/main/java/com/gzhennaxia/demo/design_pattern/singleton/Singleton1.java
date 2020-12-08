@@ -1,4 +1,4 @@
-package com.gzhennaxia.demo.singleton;
+package com.gzhennaxia.demo.design_pattern.singleton;
 
 import java.io.Serializable;
 

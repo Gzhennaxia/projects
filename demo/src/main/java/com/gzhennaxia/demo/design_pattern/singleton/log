@@ -2,7 +2,7 @@ Classfile /Users/libo/Documents/GitHub/projects/demo/src/main/java/com/gzhennaxi
   Last modified 2020年10月22日; size 921 bytes
   MD5 checksum bf867cdc275213b5182d9e511c593cad
   Compiled from "Singleton6.java"
-public final class com.gzhennaxia.demo.singleton.Singleton6 extends java.lang.Enum<com.gzhennaxia.demo.singleton.Singleton6>
+public final class com.gzhennaxia.demo.design_pattern.singleton.Singleton6 extends java.lang.Enum<com.gzhennaxia.demo.design_pattern.singleton.Singleton6>
   minor version: 0
   major version: 56
   flags: (0x4031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER, ACC_ENUM
@@ -50,11 +50,11 @@ Constant pool:
   #38 = Utf8               ()Ljava/lang/Object;
   #39 = Utf8               (Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/Enum;
 {
-  public static final com.gzhennaxia.demo.singleton.Singleton6 INSTANCE;
+  public static final com.gzhennaxia.demo.design_pattern.singleton.Singleton6 INSTANCE;
     descriptor: Lcom/gzhennaxia/demo/singleton/Singleton6;
     flags: (0x4019) ACC_PUBLIC, ACC_STATIC, ACC_FINAL, ACC_ENUM
 
-  public static com.gzhennaxia.demo.singleton.Singleton6[] values();
+  public static com.gzhennaxia.demo.design_pattern.singleton.Singleton6[] values();
     descriptor: ()[Lcom/gzhennaxia/demo/singleton/Singleton6;
     flags: (0x0009) ACC_PUBLIC, ACC_STATIC
     Code:
@@ -66,7 +66,7 @@ Constant pool:
       LineNumberTable:
         line 7: 0
 
-  public static com.gzhennaxia.demo.singleton.Singleton6 valueOf(java.lang.String);
+  public static com.gzhennaxia.demo.design_pattern.singleton.Singleton6 valueOf(java.lang.String);
     descriptor: (Ljava/lang/String;)Lcom/gzhennaxia/demo/singleton/Singleton6;
     flags: (0x0009) ACC_PUBLIC, ACC_STATIC
     Code:

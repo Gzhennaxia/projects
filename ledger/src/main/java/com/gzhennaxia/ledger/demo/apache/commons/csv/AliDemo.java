@@ -23,15 +23,15 @@ import java.util.Date;
  */
 public class AliDemo {
 
-    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201027_0903_1.csv";
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201027_0903_2.csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201027_0903_3.csv";
+    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201207_0907_1.csv";
+    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201207_0907_2.csv";
+    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201207_0907_3.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         EncodingDetectDemo.convertEncoding("GBK", "UTF-8", FILE_PATH, CSV_FILE_PATH);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/10/18 11:42"));
+        fun(dateFormat.parse("2020/11/21 11:45"));
     }
 
 
@@ -68,180 +68,161 @@ public class AliDemo {
                         String counterparty = item.getCounterparty();
                         String dealSource = item.getDealSource();
                         String productName = item.getProductName();
-                        String categroy = "";
+                        String category = "";
                         String name = productName;
+                        String money = item.getMoney();
                         String count = "";
                         String payType = "支付宝";
                         String channel = "";
                         String remark = "";
                         switch (counterparty) {
                             case "罗崖":
-                                categroy = "台球";
+                                category = "台球";
                                 name = "打台球";
                                 count = "1次";
                                 channel = "港龙桌球城(上沙店)";
                                 break;
+                            case "老东北菜馆":
+                                category = getThreeMeals(hour);
+                                name = "饺子";
+                                count = "1次";
+                                channel = "小区门口老东北饺子馆";
+                                break;
+                            case "重庆粉面":
+                                category = getThreeMeals(hour);
+                                if ("10.00".equals(money)) {
+                                    name = "重庆小面";
+                                }
+                                count = "1次";
+                                channel = "重庆粉面-沙尾店";
+                                break;
                             case "恛憶":
-                                categroy = "早餐";
+                                category = getThreeMeals(hour);
                                 if ("5.00".equals(item.getMoney())) name = "肉包子*1、菜包子*1、茶叶蛋*1";
                                 if ("4.50".equals(item.getMoney())) name = "菜包子*2、茶叶蛋*1";
                                 count = "1份";
                                 channel = "楼下包子铺";
                                 break;
                             case "拼多多平台商户":
-                                categroy = "网购";
+                                category = "网购";
                                 count = "1个";
                                 channel = "拼多多APP";
                                 break;
                             case "香火肥肠":
-                                if (7 < hour && hour <= 13) {
-                                    categroy = "午餐";
-                                } else if (13 < hour && hour <= 19) {
-                                    categroy = "晚餐";
-                                } else if (19 < hour || hour <= 7) {
-                                    categroy = "夜宵";
-                                }
+                                category = getThreeMeals(hour);
                                 count = "1次";
                                 channel = "楼下肥肠店";
                                 break;
                             case "马维良":
-                                if (7 < hour && hour <= 13) {
-                                    categroy = "午餐";
-                                } else if (13 < hour && hour <= 19) {
-                                    categroy = "晚餐";
-                                } else if (19 < hour || hour <= 7) {
-                                    categroy = "夜宵";
+                                category = getThreeMeals(hour);
+                                switch (money) {
+                                    case "15.00":
+                                        name = "拉面";
+                                        break;
+                                    case "19.00":
+                                        name = "鸡蛋炒刀削";
+                                        break;
                                 }
                                 count = "1次";
                                 channel = "公司附近兰州拉面门店";
                                 break;
                             case "天猫超市":
-                                categroy = "网购";
+                                category = "网购";
                                 count = "1次";
                                 channel = "淘宝-天猫超市";
                                 break;
                             case "花呗":
-                                categroy = "还款";
+                                category = "还款";
                                 count = "1次";
                                 channel = "支付宝-花呗";
                                 break;
                             case "当当网":
-                                categroy = "网购";
+                                category = "网购";
                                 count = "1次";
                                 channel = "当当APP";
                                 break;
                             case "武汉市哈哈便利科技有限公司":
-                                categroy = "饮品";
+                                category = "饮品";
                                 count = "1次";
                                 channel = "公司楼道自动售卖机";
                                 break;
                             case "高德打车入驻商户":
-                                categroy = "打车";
+                                category = "打车";
                                 count = "1次";
                                 channel = "高德地图APP";
                                 break;
                             case "路...一直在":
-                                if (7 < hour && hour <= 13) {
-                                    categroy = "午餐";
-                                } else if (13 < hour && hour <= 19) {
-                                    categroy = "晚餐";
-                                } else if (19 < hour || hour <= 7) {
-                                    categroy = "夜宵";
-                                }
+                                category = getThreeMeals(hour);
                                 count = "1份";
                                 channel = "谚语羊肉饸饹面";
                                 break;
                             case "谚语羊肉饸饹面":
-                                if (7 < hour && hour <= 13) {
-                                    categroy = "午餐";
-                                } else if (13 < hour && hour <= 19) {
-                                    categroy = "晚餐";
-                                } else if (19 < hour || hour <= 7) {
-                                    categroy = "夜宵";
-                                }
+                                category = getThreeMeals(hour);
                                 count = "1份";
                                 channel = "谚语羊肉饸饹面";
                                 break;
                             case "美团点评":
-                                if (7 < hour && hour <= 13) {
-                                    categroy = "午餐";
-                                } else if (13 < hour && hour <= 19) {
-                                    categroy = "晚餐";
-                                } else if (19 < hour || hour <= 7) {
-                                    categroy = "夜宵";
-                                }
+                                category = getThreeMeals(hour);
                                 count = "1份";
                                 channel = "美团外卖APP";
                                 break;
                             case "肯德基":
-                                if (7 < hour && hour <= 13) {
-                                    categroy = "午餐";
-                                } else if (13 < hour && hour <= 19) {
-                                    categroy = "晚餐";
-                                } else if (19 < hour || hour <= 7) {
-                                    categroy = "夜宵";
-                                }
+                                category = getThreeMeals(hour);
                                 count = "1份";
                                 channel = "肯德基门店";
                                 break;
                             case "唯客（南油）":
-                                categroy = "晚餐";
+                                category = "晚餐";
                                 count = "1份";
 
                                 channel = "唯客门店";
                                 name = "快餐";
                                 break;
                             case "深圳市地铁相关运营主体":
-                                categroy = "地铁";
+                                category = "地铁";
                                 count = "1次";
                                 channel = "乘车码小程序";
                                 break;
                             case "阿香竞彩":
-                                categroy = "竞彩";
+                                category = "竞彩";
                                 count = "1次";
                                 channel = "阿香竞彩店APP";
                                 break;
                             case "饿了么":
-                                if (7 < hour && hour <= 13) {
-                                    categroy = "午餐";
-                                } else if (13 < hour && hour <= 19) {
-                                    categroy = "晚餐";
-                                } else if (19 < hour || hour <= 7) {
-                                    categroy = "夜宵";
-                                }
+                                category = getThreeMeals(hour);
                                 count = "1次";
                                 channel = "饿了么APP";
                                 break;
                             case "友宝":
-                                categroy = "饮品";
+                                category = "饮品";
                                 count = "1瓶";
                                 channel = "友宝售货机";
                                 break;
                             case "友宝售货机(广电集团3)":
-                                categroy = "饮品";
+                                category = "饮品";
                                 count = "1瓶";
                                 channel = "友宝售货机";
                                 break;
                         }
                         if (counterparty.startsWith("7-Eleven")) {
-                            categroy = "超市";
+                            category = "超市";
                             count = "1次";
                             payType = "支付宝-花呗";
                             channel = "7-Eleven便利店";
                         }
                         if (counterparty.startsWith("1点点")) {
-                            categroy = "饮品";
+                            category = "饮品";
                             count = "1次";
                             payType = "支付宝-花呗";
                             channel = "1点点门店";
                         }
                         if (counterparty.startsWith("黔派虾子羊肉粉")) {
                             if (7 < hour && hour <= 13) {
-                                categroy = "午餐";
+                                category = "午餐";
                             } else if (13 < hour && hour <= 19) {
-                                categroy = "晚餐";
+                                category = "晚餐";
                             } else if (19 < hour || hour <= 7) {
-                                categroy = "夜宵";
+                                category = "夜宵";
                             }
                             count = "1次";
                             payType = "支付宝-花呗";
@@ -249,71 +230,75 @@ public class AliDemo {
                         }
                         switch (productName) {
                             case "中国联通-美团外卖满10减10满减券":
-                                categroy = "优惠券";
+                                category = "优惠券";
                                 count = "1张";
                                 channel = "联通手机营业厅APP";
                                 name = "中国联通-美团外卖满10减10满减券";
                                 break;
                             case "借呗还款":
-                                categroy = "还款";
+                                category = "还款";
                                 count = "1次";
                                 channel = "支付宝-借呗";
                                 break;
                             case "百里臣金地分店消费":
-                                categroy = "饮品";
+                                category = "饮品";
                                 count = "1次";
                                 channel = "小区门口便利店";
                                 break;
                             case "luckincoffee":
-                                categroy = "饮品";
+                                category = "饮品";
                                 count = "1次";
                                 channel = "luckincoffee APP";
                                 break;
                         }
                         if (productName.startsWith("相互宝")) {
-                            categroy = "保险";
+                            category = "保险";
                             count = "1期";
                             channel = "支付宝APP";
                         }
                         if (productName.startsWith("天猫超市卡")) {
-                            categroy = "充值";
+                            category = "充值";
                             count = "1次";
                             channel = "天猫APP";
                         }
                         if ("北京摩拜科技有限公司".equals(counterparty) && "车费代扣".equals(productName)) {
-                            categroy = "单车";
+                            category = "单车";
                             count = "1次";
 
                             channel = "美团APP";
                             name = "美团单车";
                         }
                         if ("中国联通".equals(counterparty) && "美团外卖满10减10满减券".equals(productName)) {
-                            categroy = "外卖券";
+                            category = "外卖券";
                             count = "1次";
                             channel = "联通手机营业厅APP";
                         }
                         if ("中国联通".equals(counterparty) && "美团外卖满10减10满减券".equals(productName)) {
-                            categroy = "优惠券";
+                            category = "优惠券";
                             count = "1张";
                             channel = "联通手机营业厅APP";
                             name = "中国联通-美团外卖满5减5满减券";
                         }
                         if ("淘宝".equals(dealSource)) {
-                            categroy = "网购";
+                            category = "网购";
                             count = "1次";
-                            channel = "淘宝APP";
+                            if ("饿了么".equals(counterparty)) {
+                                channel = "饿了么APP";
+                            } else {
+                                channel = "淘宝APP";
+                            }
                         }
                         if ("中国联通".equals(counterparty) && productName.contains("交费")) {
-                            categroy = "话费";
+                            category = "话费";
                             count = "1次";
                             channel = "联通手机营业厅APP";
                         }
                         csvPrinter.printRecord(
                                 date.format(dealCreateTime),
                                 time.format(dealCreateTime),
-                                categroy,
+                                category,
                                 name,
-                                item.getMoney(),
+                                money,
                                 count,
                                 payType,
                                 channel,
@@ -329,4 +314,17 @@ public class AliDemo {
         csvPrinter.flush();
     }
 
+    private static String getThreeMeals(int hour) {
+        String category;
+        if (5 < hour && hour <= 10) {
+            category = "早餐";
+        } else if (10 < hour && hour <= 13) {
+            category = "午餐";
+        } else if (13 < hour && hour <= 19) {
+            category = "晚餐";
+        } else {
+            category = "夜宵";
+        }
+        return category;
+    }
 }

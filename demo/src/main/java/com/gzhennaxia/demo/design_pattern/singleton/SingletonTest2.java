@@ -1,8 +1,6 @@
-package com.gzhennaxia.demo.singleton;
+package com.gzhennaxia.demo.design_pattern.singleton;
 
 import java.io.*;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author bo li

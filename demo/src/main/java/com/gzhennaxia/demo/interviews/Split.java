@@ -10,7 +10,7 @@ public class Split {
 
     public static void main(String[] args) throws IOException {
         String direction = "/Users/libo/Documents/GitHub/projects/demo/src/main/java/com/gzhennaxia/demo/interviews";
-        File interviewFile = new File("/Users/libo/Documents/GitHub/Gzhennaxia.github.io/source/ignore_render/interview/Interview.md");
+        File interviewFile = new File("/Users/libo/Documents/GitHub/Gzhennaxia.github.io/source/_posts/Interview.md");
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(interviewFile)));
         String s;
         int i = 0;

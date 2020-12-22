@@ -24,12 +24,12 @@ import java.util.Date;
  */
 public class WeChatDemo {
 
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/微信支付账单(20201108-20201208)-1.csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/20201108-20201208-1.csv";
+    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/微信支付账单(20201122-20201222)2.csv";
+    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/20201122-20201222-2.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/11/21 13:13"));
+        fun(dateFormat.parse("2020/12/4 16:40"));
     }
 
     private static void fun(Date startTime) throws IOException {
@@ -78,6 +78,19 @@ public class WeChatDemo {
                         String channel = "";
                         String remark = "";
                         switch (counterparty) {
+                            case "三江源兰州拉面":
+                                category = CSVUtils.getThreeMeals(hour);
+                                switch (money) {
+                                    case "15.00":
+                                        name = "拉面";
+                                        break;
+                                    case "19.00":
+                                        name = "鸡蛋炒刀削";
+                                        break;
+                                }
+                                count = "1次";
+                                channel = "公司附近兰州拉面门店";
+                                break;
                             case "不必再憶":
                                 category = "早餐";
                                 if ("¥5.00".equals(item.getMoney())) name = "肉包子*1、菜包子*1、茶叶蛋*1";

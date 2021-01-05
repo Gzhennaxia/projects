@@ -23,15 +23,15 @@ import java.util.Date;
  */
 public class AliDemo {
 
-    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201221_0916_1.csv";
-    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201221_0916_2.csv";
-    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20201221_0916_3.csv";
+    private final static String FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20210105_0836_1.csv";
+    private final static String CSV_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20210105_0836_2.csv";
+    private final static String OUT_FILE_PATH = "/Users/libo/Documents/GitHub/projects/ledger/src/main/java/com/gzhennaxia/ledger/demo/apache/commons/csv/alipay_record_20210105_0836_3.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
         EncodingDetectDemo.convertEncoding("GBK", "UTF-8", FILE_PATH, CSV_FILE_PATH);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        fun(dateFormat.parse("2020/12/6 18:31"));
+        fun(dateFormat.parse("2020/12/19 19:22"));
     }
 
 
@@ -81,6 +81,16 @@ public class AliDemo {
                                 name = "打台球";
                                 count = "1次";
                                 channel = "港龙桌球城(上沙店)";
+                                break;
+                            case "嘉乐便利店":
+                                category = "超市";
+                                count = "1次";
+                                channel = "嘉乐便利店-龙珠店(佳兆业·大都会楼下附近)";
+                                break;
+                            case "中国兰州拉面":
+                                category = CSVUtils.getThreeMeals(hour);
+                                count = "1次";
+                                channel = "兰州拉面(佳兆业·大都会楼下)";
                                 break;
                             case "老东北菜馆":
                                 category = CSVUtils.getThreeMeals(hour);
@@ -257,6 +267,11 @@ public class AliDemo {
                         }
                         if (productName.startsWith("百里臣便利店金地分店消费")) {
                             channel = "百里臣便利店金地分店";
+                        }
+                        if (productName.startsWith("超级会员加量包订单")) {
+                            category = "外卖红包";
+                            count = (int) (Double.valueOf(money) * 2 / 5) + "张";
+                            channel = "饿了么APP";
                         }
                         if ("北京摩拜科技有限公司".equals(counterparty) && "车费代扣".equals(productName)) {
                             category = "单车";
